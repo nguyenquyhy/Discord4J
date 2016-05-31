@@ -93,6 +93,20 @@ public interface IChannel extends IDiscordObject<IChannel> {
 	IMessage sendMessage(String content, boolean tts) throws MissingPermissionsException, HTTP429Exception, DiscordException;
 
 	/**
+	 * Sends a message to the desired channel.
+	 *
+	 * @param content The content of the message.
+	 * @param nonce NONCE token.
+	 * @param tts Whether the message should use tts or not.
+	 * @return The message object representing the sent message
+	 *
+	 * @throws MissingPermissionsException
+	 * @throws HTTP429Exception
+	 * @throws DiscordException
+	 */
+	IMessage sendMessage(String content, String nonce, boolean tts) throws MissingPermissionsException, HTTP429Exception, DiscordException;
+
+	/**
 	 * Sends a file to the channel with a message attached.
 	 *
 	 * @param file The file to send.

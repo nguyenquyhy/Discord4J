@@ -66,6 +66,11 @@ public class Message implements IMessage {
 	protected volatile List<Attachment> attachments;
 
 	/**
+	 * The NONCE token, if any, on the message.
+	 */
+	protected volatile String nonce;
+
+	/**
 	 * Whether the
 	 */
 	protected volatile boolean mentionsEveryone;
@@ -77,7 +82,7 @@ public class Message implements IMessage {
 
 	public Message(IDiscordClient client, String id, String content, IUser user, IChannel channel,
 				   LocalDateTime timestamp, Optional<LocalDateTime> editedTimestamp, boolean mentionsEveryone,
-				   List<String> mentions, List<Attachment> attachments) {
+				   List<String> mentions, List<Attachment> attachments, String nonce) {
 		this.client = client;
 		this.id = id;
 		this.content = content;
@@ -87,6 +92,7 @@ public class Message implements IMessage {
 		this.editedTimestamp = editedTimestamp;
 		this.mentions = mentions;
 		this.attachments = attachments;
+		this.nonce = nonce;
 		this.mentionsEveryone = mentionsEveryone;
 	}
 
@@ -120,6 +126,15 @@ public class Message implements IMessage {
 	 */
 	public void setAttachments(List<Attachment> attachments) {
 		this.attachments = attachments;
+	}
+
+	/**
+	 * Sets the CACHED NONCE in this message.
+	 *
+	 * @param nonce The new NONCE.
+	 */
+	public void setNonce(String nonce) {
+		this.nonce = nonce;
 	}
 
 	@Override
@@ -163,6 +178,11 @@ public class Message implements IMessage {
 	@Override
 	public List<Attachment> getAttachments() {
 		return attachments;
+	}
+
+	@Override
+	public String getNonce() {
+		return nonce;
 	}
 
 	@Override
@@ -248,7 +268,7 @@ public class Message implements IMessage {
 	@Override
 	public IMessage copy() {
 		return new Message(client, id, content, author, channel, timestamp, editedTimestamp, mentionsEveryone, mentions,
-				attachments);
+				attachments, nonce);
 	}
 
 	@Override

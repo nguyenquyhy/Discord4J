@@ -307,7 +307,7 @@ public class DiscordUtils {
 			return new Message(client, json.id, json.content, getUserFromJSON(client, json.author),
 					channel, convertFromTimestamp(json.timestamp), json.edited_timestamp == null ?
 					Optional.empty() : Optional.of(convertFromTimestamp(json.edited_timestamp)), json.mention_everyone,
-					getMentionsFromJSON(client, json), getAttachmentsFromJSON(json));
+					getMentionsFromJSON(client, json), getAttachmentsFromJSON(json), json.nonce);
 	}
 
 	/**

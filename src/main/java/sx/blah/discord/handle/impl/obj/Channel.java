@@ -188,13 +188,18 @@ public class Channel implements IChannel {
 
 	@Override
 	public IMessage sendMessage(String content, boolean tts) throws MissingPermissionsException, HTTP429Exception, DiscordException {
+		return sendMessage(content, null, false);
+	}
+
+	@Override
+	public IMessage sendMessage(String content, String nonce, boolean tts) throws MissingPermissionsException, HTTP429Exception, DiscordException {
 		DiscordUtils.checkPermissions(client, this, EnumSet.of(Permissions.SEND_MESSAGES));
 
 		if (client.isReady()) {
 //            content = DiscordUtils.escapeString(content);
 
 			MessageResponse response = DiscordUtils.GSON.fromJson(Requests.POST.makeRequest(DiscordEndpoints.CHANNELS+id+"/messages",
-					new StringEntity(DiscordUtils.GSON.toJson(new MessageRequest(content, new String[0], tts)), "UTF-8"),
+					new StringEntity(DiscordUtils.GSON.toJson(new MessageRequest(content, nonce, tts)), "UTF-8"),
 					new BasicNameValuePair("authorization", client.getToken()),
 					new BasicNameValuePair("content-type", "application/json")), MessageResponse.class);
 

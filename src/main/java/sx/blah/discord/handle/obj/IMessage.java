@@ -56,6 +56,13 @@ public interface IMessage extends IDiscordObject<IMessage> {
 	List<Attachment> getAttachments();
 
 	/**
+	 * Gets the NONCE token in this message.
+	 *
+	 * @return The NONCE token.
+	 */
+	String getNonce();
+
+	/**
 	 * Adds an "@mention," to the author of the referenced Message
 	 * object before your content
 	 *
